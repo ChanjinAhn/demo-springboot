@@ -1,6 +1,32 @@
 #spring.thymeleaf.prefix=classpath:/static/
 
 spring:
+  profiles:
+    group:
+      "local": "local-db,common"
+      "dev":  "dev,common"
+      "prod": "real,common"
+---
+spring:
+  config:
+    activate:
+      on-profile: "local-db"
+  datasource:
+    url: "jdbc:mysql://service-server/web"
+    username: "proddbuser"
+    password: "proddbpass"
+---
+spring:
+  config:
+    activate:
+      on-profile: "common"
   devtools:
     livereload:
       enabled: true
+server:
+  port: 8080
+---
+logging:
+  config: classpath:log4j2.yml
+---
+

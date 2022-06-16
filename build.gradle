@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id "io.freefair.lombok" version "6.4.3.1"
 }
 
 group = 'example'
@@ -9,8 +10,12 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+	all{
+		// spring boot 기본 logger 제외
+		exclude module: 'spring-boot-starter-logging'
+		// was tomcat 제외
+		exclude module: 'spring-boot-starter-tomcat'
+		exclude module: 'undertow-websockets-jsr'
 	}
 }
 
@@ -19,12 +24,30 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: '2.6.3'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.0.0'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.6.3'
+	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.13.1'
+	// logging
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.1'
+	// database
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.3'
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
+	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
+//	annotationProcessor 'org.projectlombok:lombok'
+	// testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-groovy-3.0'
+
+	testImplementation group: 'com.h2database.wso2', name: 'h2-database-engine', version: '1.2.140.wso2v3'
+	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 }
 
 test {

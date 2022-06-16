@@ -1,4 +1,4 @@
-package example.demospringboot.test.controller;
+package io.oikk.common.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
