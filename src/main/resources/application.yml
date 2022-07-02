@@ -3,18 +3,9 @@
 spring:
   profiles:
     group:
-      "local": "local-db,common"
+      "local": "local, common"
       "dev":  "dev,common"
       "prod": "real,common"
----
-spring:
-  config:
-    activate:
-      on-profile: "local-db"
-  datasource:
-    url: "jdbc:mysql://service-server/web"
-    username: "proddbuser"
-    password: "proddbpass"
 ---
 spring:
   config:
@@ -23,10 +14,16 @@ spring:
   devtools:
     livereload:
       enabled: true
+    restart:
+      enabled: true
 server:
   port: 8080
 ---
+spring:
+    config:
+      activate:
+        on-profile: local
 logging:
-  config: classpath:log4j2.yml
+  config: classpath:log4j2-local.yml
 ---
 

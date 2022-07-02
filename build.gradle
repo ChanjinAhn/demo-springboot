@@ -15,7 +15,8 @@ configurations {
 		exclude module: 'spring-boot-starter-logging'
 		// was tomcat 제외
 		exclude module: 'spring-boot-starter-tomcat'
-		exclude module: 'undertow-websockets-jsr'
+		exclude module: 'undertow-websockets-jsrㅋ'
+		exclude module: 'org.hamcrest'
 	}
 }
 
@@ -35,19 +36,18 @@ dependencies {
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.1'
 	// database
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.3'
-	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
-	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+//	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.3'
+//	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
+//	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
 
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-//	annotationProcessor 'org.projectlombok:lombok'
 	// testing
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
 	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-groovy-3.0'
 
-	testImplementation group: 'com.h2database.wso2', name: 'h2-database-engine', version: '1.2.140.wso2v3'
-	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
+//	testImplementation group: 'com.h2database.wso2', name: 'h2-database-engine', version: '1.2.140.wso2v3'
+//	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.210'
 }
 
 test {
