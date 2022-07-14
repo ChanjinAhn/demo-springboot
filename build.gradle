@@ -15,7 +15,7 @@ configurations {
 		exclude module: 'spring-boot-starter-logging'
 		// was tomcat 제외
 		exclude module: 'spring-boot-starter-tomcat'
-		exclude module: 'undertow-websockets-jsrㅋ'
+		exclude module: 'undertow-websockets-jsr'
 		exclude module: 'org.hamcrest'
 	}
 }
@@ -25,23 +25,32 @@ repositories {
 }
 
 dependencies {
+	// Project Config
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: '2.6.3'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.0.0'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '2.6.3'
 	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.13.1'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// WAS
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: '2.6.3'
+	// View Template
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.7.1'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
+
 	// logging
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.1'
-	// database
-//	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.3'
-//	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
+//	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
+//	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+//	implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.17.1'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.7.1'
+
+
+    // database
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.6.3'
 //	implementation group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
 
+//	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
+	implementation 'com.h2database:h2:2.1.214'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
 	// testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
 	testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.1-groovy-3.0'
