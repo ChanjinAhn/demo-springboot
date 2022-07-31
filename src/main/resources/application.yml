@@ -20,13 +20,17 @@ spring:
     prefix: classpath:templates/
     suffix: html
     cache: true
-server:
-  port: 8080
 ---
 spring:
     config:
       activate:
         on-profile: local
+server:
+  port : 8080
+  undertow:
+    threads:
+      io: 16
+      worker: 400
 logging:
   config: classpath:log4j2-local.yml
 ---
