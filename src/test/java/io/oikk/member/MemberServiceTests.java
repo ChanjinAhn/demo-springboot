@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.oikk.member.entity.Member;
 import io.oikk.member.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,26 +16,31 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Rollback(false)
+@Slf4j
 public class MemberServiceTests {
 
     @Autowired
     private MemberRepository memberRepository;
 
-    @DisplayName("Member insert test")
     @Test
+    @DisplayName("Insert Member Test")
     public void saveMemberTest() {
 
         //given
-        Member member = new Member();
-        member.setName("andrew");
-        member.setAge(32);
+        String name = "acj";
+        int age = 13;
+
+        Member member = Member.builder()
+                .name(name)
+                .age(age).build();
+
         memberRepository.save(member);
 
         // when
-        Member retriedMember = memberRepository.findById(member.getId()).get();
+        Member retriedMember = memberRepository.findByName(name).orElseThrow(IllegalArgumentException::new);
 
         // then
-        assertThat(retriedMember.getName()).isEqualTo("andrew");
-        assertThat(retriedMember.getAge()).isEqualTo(Integer.valueOf(32));
+        assertThat(retriedMember.getName()).isEqualTo(name);
+        assertThat(retriedMember.getAge()).isEqualTo(Integer.valueOf(age));
     }
 }
