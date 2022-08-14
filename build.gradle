@@ -1,3 +1,9 @@
+//buildscript {
+//	ext {
+//		queryDslVersion = "5.0.0"
+//	}
+//}
+
 plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
@@ -33,13 +39,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-configuration-processor'
 	implementation 'org.springframework.boot:spring-boot-autoconfigure'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+
+	// common
+	implementation 'org.apache.commons:commons-text:1.9'
 	// logging
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	// testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.spockframework:spock-spring:2.2-M3-groovy-3.0'
-	// WAS
+	// WAS, servlet
 	implementation 'org.springframework.boot:spring-boot-starter-undertow'
+	implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
+	// rest api docs
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	// View Template: thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
@@ -48,12 +60,36 @@ dependencies {
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 	implementation 'com.h2database:h2'
+	// querydsl
+//	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+//	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
 }
+
+// querydsl setting
+//def querydslDir = "$buildDir/generated/querydsl"
+
+//querydsl {
+//	jpa = true
+//	querydslSourcesDir = querydslDir
+//}
+//sourceSets {
+//	main.java.srcDir querydslDir
+//}
+//configurations {
+//	compileOnly {
+//		extendsFrom annotationProcessor
+//	}
+//	querydsl.extendsFrom compileClasspath
+//}
+//compileQuerydsl {
+//	options.annotationProcessorPath = configurations.querydsl
+//}
 
 test {
 	useJUnitPlatform()
 }
 
-//bootJarMainClassName {
-//	mainClassName = 'io.oikk.DemoSpringbootApplication'
-//}
+springBoot {
+	mainClass = 'io.oikk.DemoSpringbootApplication'
+}
