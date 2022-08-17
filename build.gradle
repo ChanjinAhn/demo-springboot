@@ -1,9 +1,3 @@
-//buildscript {
-//	ext {
-//		queryDslVersion = "5.0.0"
-//	}
-//}
-
 plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
@@ -61,30 +55,12 @@ dependencies {
 	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
 	implementation 'com.h2database:h2'
 	// querydsl
-//	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
-//	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
-
+	implementation "com.querydsl:querydsl-jpa"
+	implementation "com.querydsl:querydsl-apt"
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
 }
-
-// querydsl setting
-//def querydslDir = "$buildDir/generated/querydsl"
-
-//querydsl {
-//	jpa = true
-//	querydslSourcesDir = querydslDir
-//}
-//sourceSets {
-//	main.java.srcDir querydslDir
-//}
-//configurations {
-//	compileOnly {
-//		extendsFrom annotationProcessor
-//	}
-//	querydsl.extendsFrom compileClasspath
-//}
-//compileQuerydsl {
-//	options.annotationProcessorPath = configurations.querydsl
-//}
 
 test {
 	useJUnitPlatform()
@@ -92,4 +68,17 @@ test {
 
 springBoot {
 	mainClass = 'io.oikk.DemoSpringbootApplication'
+}
+
+def generated='src/main/generated'
+sourceSets {
+	main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+	options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+}
+
+clean.doLast {
+	file(generated).deleteDir()
 }

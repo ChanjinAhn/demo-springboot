@@ -1,7 +1,7 @@
 # spring group
 spring.profiles.group:
   "local": "common,local,h2-console"
-  "dev": "common,dev"
+  "test": "common,local,h2-console"
 ---
 # common
 spring:
