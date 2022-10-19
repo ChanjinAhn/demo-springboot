@@ -74,3 +74,12 @@ logging:
       hibernate:
         SQL: debug
         type: trace
+---
+# mysql
+spring:
+  profiles:
+    active: h2-console
+  jpa:
+    properties:
+      hibernate:
+        dialect: or.hibernate.dialect.MySQL5InnoDBDiale
